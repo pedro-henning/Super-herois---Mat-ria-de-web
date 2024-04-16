@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!--#metadados-->
+   <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Lista de Super-Heróis</title>
+        <style>
+          .herois {
+                display: grid;
+               grid-template-columns: repeat(4, 1fr);
+               gap: 20px;
+                  padding: 20px;
+             }
+
+            .alinhamento-da-imagem-do-heroi {
+             text-align: center;
+             }
+
+             .imagem-do-heroi {
+                 width: 200%;
+              max-width: 400px;
+              }
+
+            .nome-do-heroi {
+              color: green;
+              }
+        </style>    
+     </head>
+<body>
+    -
+    <!--javaScript-->
+    
+            <h1>Super Heróis - JSON </h1>
+             <div class="herois"></div>
+
+    <script>
+        //função que realiza uma requisição web atráves da função fetch, pegando a resposta e transformando em .json
+        function buscarHerois() {
+            return fetch('https://akabab.github.io/superhero-api/api/all.json')
+                .then(response => response.json());
+                 }
+
+                 function exibirHerois() {
+            buscarHerois().then(herois => {
+            const heroisElemento = document.querySelector('.herois');
+            herois.forEach(heroi => {
+            const itemDoHeroi = document.createElement('div');
+            itemDoHeroi.classList.add('alinhamento-da-imagem-do-heroi');
+
+            itemDoHeroi.innerHTML = `
+                <img class="imagem-do-heroi" src="${heroi.images.sm}" alt="${heroi.name}">
+                <p class="nome-do-heroi">${heroi.name}</p>
+            `;
+
+            heroisElemento.appendChild(itemDoHeroi);
+        });
+    });
+}
+    //chama a função exibir heróis
+        exibirHerois();
+
+        
+    </script>
+</body>
+
+
+
+
+</html>
